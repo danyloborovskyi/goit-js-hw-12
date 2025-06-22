@@ -73,7 +73,6 @@ async function handleclick() {
     
     try {
         const data = await getImagesByQuery(input.value.trim(), page);
-        console.log(data);
         loadMore.disabled = false;
         list.insertAdjacentHTML("beforeend", createGallery(data.hits))
         refreshLightbox();
@@ -87,7 +86,6 @@ async function handleclick() {
             behavior: "smooth"
         })
         const currentVolume = page * perPage;
-            console.log(currentVolume)
         
         if (currentVolume >= data.totalHits) {
                 hideLoadMoreButton();
