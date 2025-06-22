@@ -41,3 +41,22 @@
 .hidden {
     display: none;
 }
+
+.load-more{
+    width: 100px;
+    height: 30px;
+    background-color: gold;
+    cursor: pointer;
+    transition: background-color ease-in-out 300ms;
+}
+
+.load-more:hover {
+    background-color: yellowgreen;
+}
+
+
+
+.load-more-hidden {
+    display: none;
+}
+

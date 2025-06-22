@@ -2,12 +2,13 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 const loader = document.querySelector(".loader")
+const loadMore = document.querySelector(".load-more");
 
 let lightbox = null;
 
 export function createGallery(images) {
     return images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => `
-        <li>
+        <li class="photo-card">
             <a href="${largeImageURL}">
                 <img src="${webformatURL}" width="300" alt="${tags}">
                 <ul>
@@ -54,4 +55,12 @@ export function showLoader() {
 
 export function hideLoader() {
     loader.classList.add("hidden")
+}
+
+export function showLoadMoreButton() {
+    loadMore.classList.remove("load-more-hidden")
+}
+
+export function hideLoadMoreButton() {
+    loadMore.classList.add("load-more-hidden")
 }

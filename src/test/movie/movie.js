@@ -70,6 +70,9 @@ async function handleClick() {
         })
 
     } catch (error) {
-        alert(error.message)
+        iziToast.warning({
+        title: 'Caution',
+        message: "We're sorry, but you've reached the end of search results.",
+        });
     }
 }
