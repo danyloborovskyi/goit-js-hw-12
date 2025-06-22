@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;500;600;700&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../test.css"/>
+    <title>WebStudio</title>
+  </head>
+  <body>
+    <header>
+      <div class="container header">
+        <nav class="navigation">
+          <a href="index.html" class="logo-link"
+            >web<span class="logo-studio">studio</span></a
+          >
+          <ul class="navigation-list">
+            <li class="navigation-item">
+              <a href="index.html" class="navigation-link active">Studio</a>
+            </li>
+            <li class="navigation-item">
+              <a href="portfolio.html" class="navigation-link point">Portfolio</a>
+            </li>
+            <li class="navigation-item">
+              <a href="items.html" class="navigation-link point">Contacts</a>
+            </li>
+          </ul>
+          <svg class="burger" width="24px" height="24px">
+            <use href="./svg/icons.svg#burger"></use>
+          </svg>
+        </nav>
+        <address class="contacts">
+          <ul class="contacts-list">
+            <li class="contacts-item">
+              <a href="mailto:info@devstudio.com" class="contacts-link"
+                >info@devstudio.com</a
+              >
+            </li>
+            <li class="contacts-item">
+              <a href="tel:+11 (000) 111-11-11" class="contacts-link"
+                >+11 (000) 111-11-11</a
+              >
+            </li>
+          </ul>
+        </address>
+      </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="container-movie"></div>
+                <div class="js-guard"></div>
+      <ul class="gallery"></ul>
+      </div>
+    </main>  
+    </body>
+    <script type="module" src="./movie-auto-add-more.js"></script>
+</html>
