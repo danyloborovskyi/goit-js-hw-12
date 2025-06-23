@@ -14,7 +14,7 @@ const perPage = 15;
 
 form.addEventListener("submit", handleSubmit)
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault()
     const query = input.value.trim();
     page = 1;
@@ -31,9 +31,8 @@ function handleSubmit(event) {
     clearGallery(list);
 
     showLoader()
-
-    getImagesByQuery(query, page).then(data => {
-
+    try {
+        const data = await getImagesByQuery(query, page);
         if (data.hits.length > 0) {
 
             list.innerHTML = createGallery(data.hits)
@@ -45,22 +44,22 @@ function handleSubmit(event) {
             });
         }
 
-        if (perPage >= data.totalHits) {
+        if (perPage * page >= data.totalHits) {
             iziToast.warning({
                 title: 'Caution',
                 message: "We're sorry, but you've reached the end of search results.",
         });
         hideLoadMoreButton()
         }
-    })
-    .catch(() => {
+    }
+    
+    catch(error) {
         iziToast.error({
                 message: 'Oops, something went wrong',
             });
-    })
-    .finally(() => {
+    } finally {
         hideLoader();
-    })
+    }
 }
 
 refreshLightbox();
