@@ -2,14 +2,14 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 import { getImagesByQuery } from "./js/pixabay-api"
-import { createGallery, clearGallery, refreshLightbox, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton } from "./js/render-functions";
+import { createGallery, clearGallery, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton } from "./js/render-functions";
 
 const form = document.querySelector(".form")
 const input = document.querySelector('[name="search-text"]')
 const list = document.querySelector(".gallery")
 const loadMore = document.querySelector(".load-more");
 
-let page = 1;
+let page;
 const perPage = 15; 
 
 form.addEventListener("submit", handleSubmit)
@@ -33,23 +33,25 @@ async function handleSubmit(event) {
     showLoader()
     try {
         const data = await getImagesByQuery(query, page);
+        console.log(data);
+        const totalPages = Math.ceil(data.totalHits / perPage)
+
+
         if (data.hits.length > 0) {
-
-            list.innerHTML = createGallery(data.hits)
-            refreshLightbox();
-            showLoadMoreButton();
+            createGallery(data.hits);
+            if (page < totalPages) {
+                showLoadMoreButton();
         } else {
-            iziToast.error({
-                message: 'Sorry, there are no images matching your search query. Please try again!',
-            });
-        }
-
-        if (perPage * page >= data.totalHits) {
             iziToast.warning({
                 title: 'Caution',
                 message: "We're sorry, but you've reached the end of search results.",
         });
-        hideLoadMoreButton()
+        hideLoadMoreButton();
+        }
+        } else if (data.hits.length === 0) {
+            iziToast.error({
+                message: 'Sorry, there are no images matching your search query. Please try again!',
+            });
         }
     }
     
@@ -62,8 +64,6 @@ async function handleSubmit(event) {
     }
 }
 
-refreshLightbox();
-
 loadMore.addEventListener("click", handleclick)
 
 async function handleclick() {
@@ -73,8 +73,7 @@ async function handleclick() {
     try {
         const data = await getImagesByQuery(input.value.trim(), page);
         loadMore.disabled = false;
-        list.insertAdjacentHTML("beforeend", createGallery(data.hits))
-        refreshLightbox();
+        createGallery(data.hits);
 
         const card = document.querySelector(".photo-card");
         const cardHeight = card.getBoundingClientRect().height;
@@ -84,9 +83,9 @@ async function handleclick() {
             top: cardHeight * 2,
             behavior: "smooth"
         })
-        const currentVolume = page * perPage;
+        const totalPages = Math.ceil(data.totalHits / perPage)
         
-        if (currentVolume >= data.totalHits) {
+        if (page >= totalPages) {
                 hideLoadMoreButton();
                 iziToast.warning({
                 title: 'Caution',

@@ -3,11 +3,12 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 const loader = document.querySelector(".loader")
 const loadMore = document.querySelector(".load-more");
+const list = document.querySelector(".gallery")
 
 let lightbox = null;
 
 export function createGallery(images) {
-    return images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => `
+    const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => `
         <li class="photo-card">
             <a href="${largeImageURL}">
                 <img src="${webformatURL}" width="300" alt="${tags}">
@@ -32,13 +33,16 @@ export function createGallery(images) {
             </a>
         </li>
     `).join("")
+
+    list.insertAdjacentHTML("beforeend", markup);
+    refreshLightbox();
 }
 
 export function clearGallery(galleryElement) {
   galleryElement.innerHTML = '';
 }
 
-export function refreshLightbox() {
+function refreshLightbox() {
   if (!lightbox) {
     lightbox = new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
