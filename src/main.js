@@ -18,6 +18,7 @@ async function handleSubmit(event) {
     event.preventDefault()
     const query = input.value.trim();
     page = 1;
+    hideLoadMoreButton();
 
     if (query === "") {
         iziToast.warning({
@@ -52,6 +53,7 @@ async function handleSubmit(event) {
             iziToast.error({
                 message: 'Sorry, there are no images matching your search query. Please try again!',
             });
+            hideLoadMoreButton();
         }
     }
     
